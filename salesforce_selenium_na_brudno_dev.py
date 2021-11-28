@@ -13,18 +13,35 @@ Created on Sat Nov 20 13:08:27 2021
     #3.Wyedytowac dowolna szanse sprzedazowa
 
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
 from datetime import datetime
 import time
 from simple_salesforce import Salesforce
 from selenium.common.exceptions import NoSuchElementException
+import os
 
-username = 'adammiklaski@gmail.com'
-password = 'Kjk78g9a'
-token = 'B5jrkvWNN5jhfE8VVyhG35JUB'
+path = r'C:\MyPythonScripts\selenium_salesforce'
+os.chdir(path)
+
+hasla = open("hasla.txt", "r")
+
+username = ''
+password = ''
+token = ''
 domain = 'login'
+
+n = 0
+
+for i in hasla:
+    if n == 0:
+        username = i.rstrip()
+    elif n == 1:
+        password = i.rstrip()
+    elif n == 2:
+        token = i.rstrip()
+    n = n + 1
+
+hasla.close()
 
 options = webdriver.ChromeOptions()
 options.add_argument(r"--user-data-dir=C:\Users\krzys\AppData\Local\Google\Chrome\User Data") #e.g. C:\Users\You\AppData\Local\Google\Chrome\User Data
@@ -129,5 +146,9 @@ for wystapienia in range (0,len(opps['records'])):
         time.sleep(3)
         driver.find_element_by_xpath("//*[@Name='Amount']").send_keys(0)        
     time.sleep(1)
-    driver.find_element_by_xpath("//*[@Name='SaveEdit']").click()
+    try:
+        driver.find_element_by_xpath("//*[@Name='SaveEdit']").click()
+    except NoSuchElementException:
+        time.sleep(3)
+        driver.find_element_by_xpath("//*[@Name='SaveEdit']").click()
     time.sleep(2)
