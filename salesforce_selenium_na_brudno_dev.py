@@ -202,6 +202,7 @@ for wystapienia in range (0,len(opps['records'])):
                    ,'*{}'.format(the_traceback)
                    , '\n'
                    , opp_url + opps['records'][wystapienia]['Id'] + '/view'
+                   , '\n'
                    , file=f)
     time.sleep(1)
     try:
@@ -221,6 +222,7 @@ for wystapienia in range (0,len(opps['records'])):
                    ,'*{}'.format(the_traceback)
                    , '\n'
                    , opp_url + opps['records'][wystapienia]['Id'] + '/view'
+                   , '\n'
                    , file=f)
     time.sleep(1)
     try:
@@ -239,6 +241,7 @@ for wystapienia in range (0,len(opps['records'])):
                    ,'*{}'.format(the_traceback)
                    , '\n'
                    , opp_url + opps['records'][wystapienia]['Id'] + '/view'
+                   , '\n'
                    , file=f)        
     time.sleep(1)
     try:
@@ -257,5 +260,6 @@ for wystapienia in range (0,len(opps['records'])):
                    ,'*{}'.format(the_traceback)
                    , '\n'
                    , opp_url + opps['records'][wystapienia]['Id'] + '/view'
+                   , '\n'
                    , file=f)
     time.sleep(2)
