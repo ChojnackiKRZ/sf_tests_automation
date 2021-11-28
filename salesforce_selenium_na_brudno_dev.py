@@ -263,3 +263,68 @@ for wystapienia in range (0,len(opps['records'])):
                    , '\n'
                    , file=f)
     time.sleep(2)
+
+#%%
+#dodawanie nowych terminow w kalendarzu
+subjects = ['Call', 'Email', 'Meeting', 'Send Letter/Quote', 'Other', 'Testowy']
+
+for subject in subjects:
+    driver.get("https://noname96-dev-ed.lightning.force.com/lightning/o/Event/home")
+    time.sleep(5)
+    driver.find_element_by_xpath("//*[@id='calendarHome']/div/div[1]/div/div/div[2]/button[3]").click()
+    time.sleep(2)
+    driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/article/div[3]/div/div[1]/div/div/div[2]/div[1]/div/div/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div[1]/input").send_keys(subject)
+    driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div/div[2]/button[3]/span").click()
+
+#%%
+#edycja istniejacych terminow w kalendarzu
+    #1) New contact
+    #2) New opportunity
+    #3) New Case
+    #4) New lead
+    #5) Edit
+    #6) Delete
+events_url = 'https://noname96-dev-ed.lightning.force.com/lightning/r/Event/'
+events = sf.query_all("SELECT Id FROM Event")
+for wystapienia in range (0,len(events['records'])):
+    driver.get(events_url + events['records'][wystapienia]['Id'] + '/view')
+    #new contact
+    time.sleep(4)
+    driver.find_element_by_xpath("//a[@title='New Contact']").click()
+    time.sleep(2)
+    driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/section/div/section/div/div/div/div/div/div[1]/div/div/div/fieldset/div/div[3]/input").send_keys('Chojnacki')
+    time.sleep(1)
+    driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[3]/button[2]/span").click()
+    time.sleep(2)
+    #New opportunity
+    driver.find_element_by_xpath("//a[@title='New Opportunity']").click()
+    time.sleep(2)
+    driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/section/div/section/div/div/div/div/div/div[1]/div/div/div/div/input").send_keys('TESTOWA')
+    time.sleep(1)
+    driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/section/div/section/div/div/div/div/div/div[4]/div/div/div/div/div/div[1]/div/div/a").click()
+    time.sleep(1)
+    driver.find_element_by_xpath("//a[@title='Prospecting']").click()
+    time.sleep(1)
+    driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[3]/button[2]/span").click()
+    #New case
+    time.sleep(2)
+    driver.find_element_by_xpath("//a[@title='New Case']").click()
+    time.sleep(1)
+    driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[3]/button[2]/span").click()
+    #New lead
+    time.sleep(2)
+    driver.find_element_by_xpath("//a[@title='Show 3 more actions']").click()    
+    time.sleep(2)
+    driver.find_element_by_xpath("/html/body/div[8]/div/ul/li[2]/a").click()
+    time.sleep(2)
+    #Edit
+    driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/article/div[3]/div/div[1]/div/div/div[1]/div[2]/div/div/div/input").send_keys('TESTOWA')
+    time.sleep(1)
+    driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div/div[2]/button[3]/span").click()
+    #Delete
+    time.sleep(2)
+    driver.find_element_by_xpath("//a[@title='Show 3 more actions']").click()
+    time.sleep(1)    
+    driver.find_element_by_xpath("/html/body/div[8]/div/ul/li[3]/a").click()
+    time.sleep(1)
+    driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/div[2]/div/div[3]/div/button[2]/span").click()
