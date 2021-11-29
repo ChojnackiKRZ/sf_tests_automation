@@ -2,7 +2,7 @@
 """
 Created on Sat Nov 20 13:08:27 2021
 
-@author: krzysztof
+@author: krzys
 """
 
 #automatyzacja testów funkcjonalnych i testów regresyjnych
@@ -54,7 +54,7 @@ def czekaj_na_strone_id_click(sek: int, id_html: str):
             driver.find_element_by_id(id_html).click()
             break
         except:
-            print (f'{n} niepowodzenie')
+            print (f'{n} niepowodzenie, etap: {etap}')
             pass
         time.sleep(1)
         n = n + 1
@@ -66,7 +66,7 @@ def czekaj_na_strone_xpath_click(sek: int, xpath_html: str):
             driver.find_element_by_xpath(xpath_html).click()
             break
         except:
-            print (f'{n} niepowodzenie')
+            print (f'{n} niepowodzenie, etap: {etap}')
             pass
         time.sleep(1)
         n = n + 1
@@ -78,7 +78,7 @@ def czekaj_na_strone_id(sek: int, id_html: str):
             driver.find_element_by_id(id_html)
             break
         except:
-            print (f'{n} niepowodzenie')
+            print (f'{n} niepowodzenie, etap: {etap}')
             pass
         time.sleep(1)
         n = n + 1
@@ -90,7 +90,7 @@ def czekaj_na_strone_xpath(sek: int, xpath_html: str):
             driver.find_element_by_xpath(xpath_html)
             break
         except:
-            print (f'{n} niepowodzenie')
+            print (f'{n} niepowodzenie, etap: {etap}')
             pass
         time.sleep(1)
         n = n + 1
@@ -105,7 +105,7 @@ def laczenie_sie_z_api(sek, username, password, security_token, domain):
                        , domain = domain)
             break
         except:
-            print (f'{n} niepowodzenie')
+            print (f'{n} niepowodzenie, etap: {etap}')
             pass
         time.sleep(1)
         n = n + 1    
