@@ -2,7 +2,7 @@
 """
 Created on Sat Nov 20 13:08:27 2021
 
-@author: krzys
+@author: krzysztof
 """
 
 #automatyzacja testów funkcjonalnych i testów regresyjnych
@@ -94,6 +94,21 @@ def czekaj_na_strone_xpath(sek: int, xpath_html: str):
             pass
         time.sleep(1)
         n = n + 1
+
+def laczenie_sie_z_api(sek, username, password, security_token, domain):
+    n = 1
+    while n < sek:
+        try:
+            Salesforce(username = username
+                       , password = password
+                       , security_token = token
+                       , domain = domain)
+            break
+        except:
+            print (f'{n} niepowodzenie')
+            pass
+        time.sleep(1)
+        n = n + 1    
 
 options = webdriver.ChromeOptions()
 options.add_argument(r"--user-data-dir=C:\Users\krzys\AppData\Local\Google\Chrome\User Data") #e.g. C:\Users\You\AppData\Local\Google\Chrome\User Data
@@ -230,11 +245,11 @@ for powtorzenia in range (1, 3):
     iteracja = iteracja + 1
 
 try:
+    laczenie_sie_z_api(5, username = username, password = password, security_token = token, domain = domain)
     sf = Salesforce(username = username
-                    , password = password
-                    , security_token = token
-                    , domain = domain)
-    
+                , password = password
+                , security_token = token
+                , domain = domain)     
     opps = sf.query_all("SELECT Id FROM Opportunity")
 except:
     etap = 'Laczenie sie z API'
@@ -250,6 +265,7 @@ except:
                ,'*{}'.format(the_traceback)
                , '\n'
                , file=f) 
+
 opp_url = 'https://noname96-dev-ed.lightning.force.com/lightning/r/Opportunity/'
 
 for wystapienia in range (0,len(opps['records'])):
@@ -525,3 +541,9 @@ for wystapienia in range (0,len(events['records'])):
                    , opp_url + opps['records'][wystapienia]['Id'] + '/view'
                    , '\n'
                    , file=f)
+
+opps_usuniecie = sf.query_all("SELECT Id FROM Opportunity where name like '%szansa%' or name like '%test%'")
+for wystapienia in range (0,len(opps_usuniecie['records'])):
+    sf.Opportunity.delete(opps_usuniecie['records'][wystapienia]['Id'])
+
+print (f'Koniec testow. Logi bledow zostaly zapisane w lokalizacji {path}')
