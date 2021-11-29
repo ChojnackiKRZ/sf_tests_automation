@@ -22,6 +22,7 @@ import os, sys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from random import randrange
 
 path = r'C:\MyPythonScripts\selenium_salesforce'
 os.chdir(path)
@@ -252,6 +253,7 @@ except:
 opp_url = 'https://noname96-dev-ed.lightning.force.com/lightning/r/Opportunity/'
 
 for wystapienia in range (0,len(opps['records'])):
+    random_amount = randrange(100, 5000000)
     driver.get(opp_url + opps['records'][wystapienia]['Id'] + '/view')
     time.sleep(3)
     try:
@@ -298,7 +300,8 @@ for wystapienia in range (0,len(opps['records'])):
     time.sleep(1)
     try:
         czekaj_na_strone_xpath(20, "//*[@Name='Amount']")
-        driver.find_element_by_xpath("//*[@Name='Amount']").send_keys(0)
+        driver.find_element_by_xpath("//*[@Name='Amount']").clear()
+        driver.find_element_by_xpath("//*[@Name='Amount']").send_keys(random_amount)
     except:
         etap = 'Pole "Amount"'
         the_type, the_value, the_traceback = sys.exc_info()
